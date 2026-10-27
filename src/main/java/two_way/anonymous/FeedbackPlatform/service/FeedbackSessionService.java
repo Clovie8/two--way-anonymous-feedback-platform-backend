@@ -1,5 +1,6 @@
 package two_way.anonymous.FeedbackPlatform.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -63,5 +64,16 @@ public class FeedbackSessionService {
 
         repository.delete(result.get());
         return "Feedback session deleted successfully";
+    }
+
+
+    public List<FeedbackSession> findByStatus(SessionStatus status) {
+        return repository.findByStatusOrderBySessionDateAsc(status);
+    }
+
+    public List<FeedbackSession> findBetweenDates(
+            LocalDate startDate, LocalDate endDate) {
+        return repository.findBySessionDateBetweenOrderBySessionDateAsc(
+                startDate, endDate);
     }
 }

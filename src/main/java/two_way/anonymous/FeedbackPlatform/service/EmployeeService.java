@@ -60,4 +60,9 @@ public class EmployeeService {
         repository.delete(result.get());
         return "Employee deleted successfully";
     }
+
+
+    public List<Employee> findByLastName(String lastName) {
+        return repository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
 }

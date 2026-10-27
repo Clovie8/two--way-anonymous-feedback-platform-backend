@@ -59,4 +59,11 @@ public class EmployeeController {
         }
         return ResponseEntity.ok(message);
     }
+
+
+    @GetMapping("/by-last-name")
+    public ResponseEntity<List<Employee>> findByLastName(
+            @RequestParam("name") String name) {
+        return ResponseEntity.ok(service.findByLastName(name));
+    }
 }

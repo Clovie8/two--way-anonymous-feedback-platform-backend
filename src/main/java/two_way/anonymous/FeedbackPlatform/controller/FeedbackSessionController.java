@@ -2,6 +2,7 @@ package two_way.anonymous.FeedbackPlatform.controller;
 
 import java.util.List;
 import java.util.UUID;
+import java.time.LocalDate;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import two_way.anonymous.FeedbackPlatform.domain.FeedbackSession;
 import two_way.anonymous.FeedbackPlatform.service.FeedbackSessionService;
+import two_way.anonymous.FeedbackPlatform.domain.SessionStatus;
 
 @RestController
 @RequestMapping("/api/feedback-sessions")
@@ -58,5 +60,22 @@ public class FeedbackSessionController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
         }
         return ResponseEntity.ok(message);
+    }
+
+
+    @GetMapping("/by-status")
+    public ResponseEntity<List<FeedbackSession>> findByStatus(
+            @RequestParam("status") SessionStatus status) {
+        return ResponseEntity.ok(service.findByStatus(status));
+    }
+
+    @GetMapping("/between")
+    public ResponseEntity<List<FeedbackSession>> findBetweenDates(
+            @RequestParam("start") String start,
+            @RequestParam("end") String end) {
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+    
+        return ResponseEntity.ok(service.findBetweenDates(startDate, endDate));
     }
 }
