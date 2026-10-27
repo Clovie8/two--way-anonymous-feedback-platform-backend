@@ -59,4 +59,10 @@ public class FeedbackAreaController {
         }
         return ResponseEntity.ok(message);
     }
+
+
+    @GetMapping("/unused")
+    public ResponseEntity<List<FeedbackArea>> getUnusedAreas() {
+        return ResponseEntity.ok(service.getUnusedAreas());
+    }
 }

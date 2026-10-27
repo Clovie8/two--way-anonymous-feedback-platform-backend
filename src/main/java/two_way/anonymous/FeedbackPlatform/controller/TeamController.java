@@ -59,4 +59,10 @@ public class TeamController {
         }
         return ResponseEntity.ok(message);
     }
+
+
+    @GetMapping("/free")
+    public ResponseEntity<List<Team>> getFreeTeams() {
+        return ResponseEntity.ok(service.getFreeTeams());
+    }
 }

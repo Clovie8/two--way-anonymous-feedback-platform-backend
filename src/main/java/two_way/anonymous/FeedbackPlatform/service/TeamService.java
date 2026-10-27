@@ -58,4 +58,9 @@ public class TeamService {
         repository.delete(result.get());
         return "Team deleted successfully";
     }
+
+
+    public List<Team> getFreeTeams() {
+        return repository.findFreeTeams();
+    }
 }

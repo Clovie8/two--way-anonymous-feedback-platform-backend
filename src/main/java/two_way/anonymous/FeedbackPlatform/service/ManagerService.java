@@ -95,4 +95,9 @@ public class ManagerService {
         repository.save(manager);
         return "Feedback area added to the manager.";
     }
+
+
+    public List<Manager> findByFeedbackAreaName(String name) {
+        return repository.findByFeedbackAreaName(name);
+    }
 }

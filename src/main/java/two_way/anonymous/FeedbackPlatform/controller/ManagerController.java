@@ -77,4 +77,11 @@ public class ManagerController {
     
         return ResponseEntity.ok(message);
     }
+
+
+    @GetMapping("/by-feedback-area")
+    public ResponseEntity<List<Manager>> findByFeedbackAreaName(
+            @RequestParam("name") String name) {
+        return ResponseEntity.ok(service.findByFeedbackAreaName(name));
+    }
 }

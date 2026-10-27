@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import two_way.anonymous.FeedbackPlatform.domain.Employee;
 import two_way.anonymous.FeedbackPlatform.repository.EmployeeRepository;
 import two_way.anonymous.FeedbackPlatform.repository.FeedbackSessionRepository;
+import two_way.anonymous.FeedbackPlatform.repository.ManagerRepository;
 
 @Service
 public class EmployeeService {
@@ -18,6 +19,9 @@ public class EmployeeService {
 
     @Autowired
     private FeedbackSessionRepository feedbackSessionRepository;
+
+    @Autowired
+    private ManagerRepository managerRepository;
 
     public List<Employee> getAll() {
         return repository.findAll();
@@ -64,5 +68,14 @@ public class EmployeeService {
 
     public List<Employee> findByLastName(String lastName) {
         return repository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
+
+
+    public Optional<List<Employee>> getEmployeesOfManager(UUID managerId) {
+        if (!managerRepository.existsById(managerId)) {
+            return Optional.empty();
+        }
+    
+        return Optional.of(repository.findEmployeesOfManager(managerId));
     }
 }

@@ -66,4 +66,14 @@ public class EmployeeController {
             @RequestParam("name") String name) {
         return ResponseEntity.ok(service.findByLastName(name));
     }
+
+
+    @GetMapping("/of-manager/{managerId}")
+    public ResponseEntity<?> getEmployeesOfManager(
+            @PathVariable UUID managerId) {
+        return service.getEmployeesOfManager(managerId)
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("The manager with that id does not exist."));
+    }
 }

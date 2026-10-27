@@ -57,4 +57,10 @@ public class FeedbackAreaService {
         repository.delete(result.get());
         return "Feedback area deleted successfully";
     }
+
+
+
+    public List<FeedbackArea> getUnusedAreas() {
+        return repository.findUnusedAreas();
+    }
 }
