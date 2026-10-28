@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import two_way.anonymous.FeedbackPlatform.domain.FeedbackSession;
 import two_way.anonymous.FeedbackPlatform.domain.SessionStatus;
+import two_way.anonymous.FeedbackPlatform.domain.Employee;
+import two_way.anonymous.FeedbackPlatform.domain.Manager;
+import two_way.anonymous.FeedbackPlatform.repository.EmployeeRepository;
+import two_way.anonymous.FeedbackPlatform.repository.ManagerRepository;
 import two_way.anonymous.FeedbackPlatform.repository.FeedbackReplyRepository;
 import two_way.anonymous.FeedbackPlatform.repository.FeedbackSessionRepository;
 
@@ -21,6 +25,13 @@ public class FeedbackSessionService {
     @Autowired
     private FeedbackReplyRepository feedbackReplyRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+    
+    @Autowired
+    private ManagerRepository managerRepository;
+
+
     public List<FeedbackSession> getAll() {
         return repository.findAll();
     }
@@ -30,7 +41,48 @@ public class FeedbackSessionService {
     }
 
     public String save(FeedbackSession session) {
+        if (session.getSessionDate() == null) {
+            return "Feedback session date is required.";
+        }
+    
+        if (session.getSessionDate().isBefore(LocalDate.now())) {
+            return "Feedback session date cannot be in the past.";
+        }
+    
+        if (session.getManager() == null || session.getManager().getId() == null) {
+            return "The manager with that id does not exist.";
+        }
+    
+        if (session.getEmployee() == null || session.getEmployee().getId() == null) {
+            return "The employee with that id does not exist.";
+        }
+    
+        Optional<Manager> managerResult =
+                managerRepository.findById(session.getManager().getId());
+        if (managerResult.isEmpty()) {
+            return "The manager with that id does not exist.";
+        }
+    
+        Optional<Employee> employeeResult =
+                employeeRepository.findById(session.getEmployee().getId());
+        if (employeeResult.isEmpty()) {
+            return "The employee with that id does not exist.";
+        }
+    
+        boolean managerAlreadyHasSession =
+                repository.existsByManager_IdAndSessionDateAndStatusNot(
+                        managerResult.get().getId(),
+                        session.getSessionDate(),
+                        SessionStatus.WITHDRAWN);
+    
+        if (managerAlreadyHasSession) {
+            return "Manager already has a feedback session on that date.";
+        }
+    
+        session.setManager(managerResult.get());
+        session.setEmployee(employeeResult.get());
         session.setStatus(SessionStatus.OPENED);
+    
         repository.save(session);
         return "Feedback session saved successfully";
     }
@@ -47,7 +99,6 @@ public class FeedbackSessionService {
         session.setEmployee(changes.getEmployee());
         session.setManager(changes.getManager());
 
-        // Do not change status here; Part D2 owns status changes.
         repository.save(session);
         return "Feedback session updated successfully";
     }
@@ -75,5 +126,34 @@ public class FeedbackSessionService {
             LocalDate startDate, LocalDate endDate) {
         return repository.findBySessionDateBetweenOrderBySessionDateAsc(
                 startDate, endDate);
+    }
+
+
+    public String changeStatus(UUID id, SessionStatus newStatus) {
+        Optional<FeedbackSession> result = repository.findById(id);
+    
+        if (result.isEmpty()) {
+            return "The feedback session with that id does not exist.";
+        }
+    
+        FeedbackSession session = result.get();
+        SessionStatus currentStatus = session.getStatus();
+    
+        boolean allowed =
+                (currentStatus == SessionStatus.OPENED &&
+                        (newStatus == SessionStatus.SUBMITTED ||
+                         newStatus == SessionStatus.WITHDRAWN))
+                ||
+                (currentStatus == SessionStatus.SUBMITTED &&
+                        (newStatus == SessionStatus.REVIEWED ||
+                         newStatus == SessionStatus.WITHDRAWN));
+    
+        if (!allowed) {
+            return "Cannot change status from " + currentStatus + " to " + newStatus;
+        }
+    
+        session.setStatus(newStatus);
+        repository.save(session);
+        return "Feedback session status updated successfully.";
     }
 }

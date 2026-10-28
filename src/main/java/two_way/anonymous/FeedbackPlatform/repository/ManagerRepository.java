@@ -12,6 +12,7 @@ import two_way.anonymous.FeedbackPlatform.domain.Manager;
 public interface ManagerRepository extends JpaRepository<Manager, UUID> {
     boolean existsByTeam_Id(UUID teamId);
     boolean existsByFeedbackAreas_Id(UUID feedbackAreaId);
+    boolean existsByTeam_TeamNumberAndIdNot(int teamNumber, UUID managerId);
 
     @Query("""
         SELECT DISTINCT m FROM Manager m

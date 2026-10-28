@@ -23,7 +23,22 @@ public class FeedbackSessionController {
 
     @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody FeedbackSession session) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(session));
+        String message = service.save(session);
+    
+        if (message.equals("Feedback session saved successfully")) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(message);
+        }
+    
+        if (message.equals("The manager with that id does not exist.") ||
+                message.equals("The employee with that id does not exist.")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+    
+        if (message.equals("Manager already has a feedback session on that date.")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }
+    
+        return ResponseEntity.badRequest().body(message);
     }
 
     @GetMapping("/all")
@@ -77,5 +92,23 @@ public class FeedbackSessionController {
         LocalDate endDate = LocalDate.parse(end);
     
         return ResponseEntity.ok(service.findBetweenDates(startDate, endDate));
+    }
+
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<String> changeStatus(
+            @PathVariable UUID id,
+            @RequestParam("status") SessionStatus status) {
+        String message = service.changeStatus(id, status);
+    
+        if (message.equals("The feedback session with that id does not exist.")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+    
+        if (message.startsWith("Cannot change status")) {
+            return ResponseEntity.badRequest().body(message);
+        }
+    
+        return ResponseEntity.ok(message);
     }
 }

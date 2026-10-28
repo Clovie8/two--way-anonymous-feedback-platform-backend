@@ -18,4 +18,9 @@ public interface FeedbackSessionRepository extends JpaRepository<FeedbackSession
         List<FeedbackSession> findBySessionDateBetweenOrderBySessionDateAsc(
         LocalDate startDate,
         LocalDate endDate);
+
+        boolean existsByManager_IdAndSessionDateAndStatusNot(
+                UUID managerId,
+                LocalDate sessionDate,
+                SessionStatus status);
 }

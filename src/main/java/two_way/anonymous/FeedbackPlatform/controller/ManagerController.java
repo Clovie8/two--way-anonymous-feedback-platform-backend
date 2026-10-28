@@ -84,4 +84,22 @@ public class ManagerController {
             @RequestParam("name") String name) {
         return ResponseEntity.ok(service.findByFeedbackAreaName(name));
     }
+
+    @PatchMapping("/{managerId}/team")
+    public ResponseEntity<String> moveToTeam(
+            @PathVariable UUID managerId,
+            @RequestParam("teamNumber") int teamNumber) {
+        String message = service.moveToTeam(managerId, teamNumber);
+    
+        if (message.equals("The manager with that id does not exist.") ||
+                message.equals("The team with that teamNumber does not exist.")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+    
+        if (message.equals("The team with that teamNumber is taken by another manager.")) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(message);
+        }
+    
+        return ResponseEntity.ok(message);
+    }
 }

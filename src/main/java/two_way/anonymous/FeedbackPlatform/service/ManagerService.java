@@ -13,6 +13,8 @@ import two_way.anonymous.FeedbackPlatform.domain.Manager;
 import two_way.anonymous.FeedbackPlatform.repository.FeedbackAreaRepository;
 import two_way.anonymous.FeedbackPlatform.repository.FeedbackSessionRepository;
 import two_way.anonymous.FeedbackPlatform.repository.ManagerRepository;
+import two_way.anonymous.FeedbackPlatform.domain.Team;
+import two_way.anonymous.FeedbackPlatform.repository.TeamRepository;
 
 @Service
 public class ManagerService {
@@ -24,6 +26,9 @@ public class ManagerService {
 
     @Autowired
     private FeedbackSessionRepository feedbackSessionRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     public List<Manager> getAll() {
         return repository.findAll();
@@ -99,5 +104,31 @@ public class ManagerService {
 
     public List<Manager> findByFeedbackAreaName(String name) {
         return repository.findByFeedbackAreaName(name);
+    }
+
+
+    public String moveToTeam(UUID managerId, int teamNumber) {
+        Optional<Manager> managerResult = repository.findById(managerId);
+        if (managerResult.isEmpty()) {
+            return "The manager with that id does not exist.";
+        }
+    
+        Optional<Team> teamResult = teamRepository.findByTeamNumber(teamNumber);
+        if (teamResult.isEmpty()) {
+            return "The team with that teamNumber does not exist.";
+        }
+    
+        boolean assignedToAnotherManager =
+                repository.existsByTeam_TeamNumberAndIdNot(teamNumber, managerId);
+    
+        if (assignedToAnotherManager) {
+            return "The team with that teamNumber is taken by another manager.";
+        }
+    
+        Manager manager = managerResult.get();
+        manager.setTeam(teamResult.get());
+        repository.save(manager);
+    
+        return "Team changed successfully.";
     }
 }
