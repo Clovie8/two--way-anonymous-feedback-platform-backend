@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import two_way.anonymous.FeedbackPlatform.domain.FeedbackSession;
 import two_way.anonymous.FeedbackPlatform.domain.SessionStatus;
 import two_way.anonymous.FeedbackPlatform.domain.Employee;
@@ -155,5 +155,16 @@ public class FeedbackSessionService {
         session.setStatus(newStatus);
         repository.save(session);
         return "Feedback session status updated successfully.";
+    }
+
+
+    public List<Object[]> countByStatus() {
+        return repository.countSessionsByStatus();
+    }
+
+    @Transactional
+    public String withdrawForManagerOnDate(UUID managerId, LocalDate date) {
+        int updated = repository.withdrawSessionsForManagerOnDate(managerId, date);
+        return updated + " feedback sessions cancelled.";
     }
 }

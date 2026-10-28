@@ -111,4 +111,18 @@ public class FeedbackSessionController {
     
         return ResponseEntity.ok(message);
     }
+
+
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<List<Object[]>> countByStatus() {
+        return ResponseEntity.ok(service.countByStatus());
+    }
+
+    @PatchMapping("/cancel-day")
+    public ResponseEntity<String> withdrawForManagerOnDate(
+            @RequestParam("managerId") UUID managerId,
+            @RequestParam("date") LocalDate date) {
+        String message = service.withdrawForManagerOnDate(managerId, date);
+        return ResponseEntity.ok(message);
+    }
 }
