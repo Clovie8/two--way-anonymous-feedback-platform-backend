@@ -1,0 +1,524 @@
+{
+  "info": {
+    "_postman_id": "786ba976-3f34-4d56-bd08-4206e246d068",
+    "name": "WebTech Mid-Exam",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51465515",
+    "_collection_link": "https://go.postman.co/collection/51465515-786ba976-3f34-4d56-bd08-4206e246d068?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "A2",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Team one\", \r\n    \"teamNumber\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/teams/ce25c97d-d92c-4a8a-b322-bb4e09470fb5",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "teams",
+            "ce25c97d-d92c-4a8a-b322-bb4e09470fb5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "B1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/employees/by-last-name?name=dukundimana",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "employees",
+            "by-last-name"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "dukundimana"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "B2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-sessions/by-status?status=OPENED",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-sessions",
+            "by-status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "OPENED"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "B3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-sessions/between?start=2026-10-01&end=2026-10-31",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-sessions",
+            "between"
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "2026-10-01"
+            },
+            {
+              "key": "end",
+              "value": "2026-10-31"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/managers/by-feedback-area?name=leadership",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "managers",
+            "by-feedback-area"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "leadership"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/teams/free",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "teams",
+            "free"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-areas/unused",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-areas",
+            "unused"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C4",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/employees/of-manager/dca6de46-509a-4d0c-9b1f-7f220fc758ef",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "employees",
+            "of-manager",
+            "dca6de46-509a-4d0c-9b1f-7f220fc758ef"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"sessionDate\": \"2026-10-03\",\r\n  \"status\": \"OPENED\",\r\n  \"topic\": \"Work culture discussion\",\r\n  \"employee\": {\r\n    \"id\": \"93bfa517-5243-4d0b-af00-11f7b94f18da\"\r\n  },\r\n  \"manager\": {\r\n    \"id\": \"2a9a0d95-fc0b-4401-994f-2f000cf3ea2b\"\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-sessions/save",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-sessions",
+            "save"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D2",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-sessions/ebee3fe3-25da-47f5-95eb-93302c105a60/status?status=REVIEWED",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-sessions",
+            "ebee3fe3-25da-47f5-95eb-93302c105a60",
+            "status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "REVIEWED"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D3",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/managers/2a9a0d95-fc0b-4401-994f-2f000cf3ea2b/feedback-areas/dd2e7fda-6d50-4c8d-86a0-cb980d64b201",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "managers",
+            "2a9a0d95-fc0b-4401-994f-2f000cf3ea2b",
+            "feedback-areas",
+            "dd2e7fda-6d50-4c8d-86a0-cb980d64b201"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D4",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/managers/2a9a0d95-fc0b-4401-994f-2f000cf3ea2b/team?teamNumber=4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "managers",
+            "2a9a0d95-fc0b-4401-994f-2f000cf3ea2b",
+            "team"
+          ],
+          "query": [
+            {
+              "key": "teamNumber",
+              "value": "4"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"subject\": \"Workload\",\r\n    \"message\": \"We will rebalance the sprint tasks next week\",\r\n    \"helpfulnessScore\": 4\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-replies/save?feedbackSessionId=ebee3fe3-25da-47f5-95eb-93302c105a60",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-replies",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "feedbackSessionId",
+              "value": "ebee3fe3-25da-47f5-95eb-93302c105a60"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-replies/employee/382abe29-ffcd-4aa8-b0cf-ce3d18d8a991",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-replies",
+            "employee",
+            "382abe29-ffcd-4aa8-b0cf-ce3d18d8a991"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E3",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-replies/delete/fc0684ba-6272-406d-be9e-ce519d1d5950",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-replies",
+            "delete",
+            "fc0684ba-6272-406d-be9e-ce519d1d5950"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "F1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-sessions/stats/by-status",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-sessions",
+            "stats",
+            "by-status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "F2",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-sessions/cancel-day?managerId=2a9a0d95-fc0b-4401-994f-2f000cf3ea2b&date=2026-10-20",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-sessions",
+            "cancel-day"
+          ],
+          "query": [
+            {
+              "key": "managerId",
+              "value": "2a9a0d95-fc0b-4401-994f-2f000cf3ea2b"
+            },
+            {
+              "key": "date",
+              "value": "2026-10-20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Bonus 1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/dashboard/summary",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "dashboard",
+            "summary"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Bonus 2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/feedback-sessions/page?page=1&size=5&sort=sessionDate,desc",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "feedback-sessions",
+            "page"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            },
+            {
+              "key": "sort",
+              "value": "sessionDate,desc"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
