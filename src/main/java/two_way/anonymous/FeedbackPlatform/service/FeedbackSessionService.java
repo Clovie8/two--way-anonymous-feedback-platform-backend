@@ -8,6 +8,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import two_way.anonymous.FeedbackPlatform.domain.FeedbackSession;
 import two_way.anonymous.FeedbackPlatform.domain.SessionStatus;
 import two_way.anonymous.FeedbackPlatform.domain.Employee;
@@ -166,5 +168,10 @@ public class FeedbackSessionService {
     public String withdrawForManagerOnDate(UUID managerId, LocalDate date) {
         int updated = repository.withdrawSessionsForManagerOnDate(managerId, date);
         return updated + " feedback sessions cancelled.";
+    }
+
+
+    public Page<FeedbackSession> getPage(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }

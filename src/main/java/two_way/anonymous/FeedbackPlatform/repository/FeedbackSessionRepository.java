@@ -49,4 +49,6 @@ public interface FeedbackSessionRepository extends JpaRepository<FeedbackSession
         int withdrawSessionsForManagerOnDate(
                 @Param("managerId") UUID managerId,
                 @Param("date") LocalDate date);
+
+        long countByStatus(SessionStatus status);
 }

@@ -7,7 +7,10 @@ import java.time.LocalDate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import two_way.anonymous.FeedbackPlatform.domain.FeedbackSession;
 import two_way.anonymous.FeedbackPlatform.service.FeedbackSessionService;
 import two_way.anonymous.FeedbackPlatform.domain.SessionStatus;
@@ -124,5 +127,25 @@ public class FeedbackSessionController {
             @RequestParam("date") LocalDate date) {
         String message = service.withdrawForManagerOnDate(managerId, date);
         return ResponseEntity.ok(message);
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<FeedbackSession>> getPage(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam String sort) {
+        String[] sortParts = sort.split(",", 2);
+    
+        String property = sortParts[0];
+        Sort.Direction direction = sortParts.length == 2
+                ? Sort.Direction.fromString(sortParts[1])
+                : Sort.Direction.ASC;
+    
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by(direction, property));
+    
+        return ResponseEntity.ok(service.getPage(pageable));
     }
 }
